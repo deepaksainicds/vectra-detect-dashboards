@@ -14,6 +14,36 @@ persist_with: vectra_detect_dashboards_default_datagroup
 explore: events {
     sql_always_where: ${metadata__log_type} = "VECTRA_DETECT" ;;
 
+  # join: entity_dashboard_2 {
+  #   sql_on: ${events.source_entity} = ${entity_dashboard_2.source_entity} ;;
+  #   type: left_outer
+  #   relationship: many_to_many
+
+  # }
+    # fields:
+    # - field_group_label: "Entity Details"
+    # dimensions:
+    # - dimension: source_entity
+    # - dimension: src_ip
+    # - dimension: vectra_url
+    # - dimension: assigned_to
+    # - field_group_label: "Scoring Details"
+    # measures:
+    # - measure: unique_priorities
+    # - measure: unique_statuses
+    # - measure: latest_update
+    join: entity_dashboard_2 {
+      type: left_outer
+      sql_on: ${events.target__asset_id} = ${entity_dashboard_2.host_id};;
+      relationship: many_to_many
+    }
+
+  join: entity_dashboard_1 {
+    from: entity_dashboard_2
+    type: left_outer
+    sql_on: ${events.target__user__userid} = ${entity_dashboard_2.account_id};;
+    relationship: many_to_many
+  }
 
     join: events__about {
       view_label: "Events: About"
