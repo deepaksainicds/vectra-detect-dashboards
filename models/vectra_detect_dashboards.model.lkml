@@ -14,7 +14,13 @@ persist_with: vectra_detect_dashboards_default_datagroup
 explore: events {
     sql_always_where: ${metadata__log_type} = "VECTRA_DETECT" ;;
 
-
+    #Lockdown
+    join: events__security_result__detection_fields__success {
+      view_label: "Events: Security Result Detection Fields Success"
+      sql: LEFT JOIN UNNEST(${events__security_result.detection_fields}) as events__security_result__detection_fields__success ON ${events__security_result__detection_fields__success.key} = 'success';;
+      fields: [events__security_result__detection_fields__success.success]
+      relationship: one_to_many
+    }
     join: events__about {
       view_label: "Events: About"
       sql: LEFT JOIN UNNEST(${events.about}) as events__about ;;
