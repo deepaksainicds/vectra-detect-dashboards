@@ -6,8 +6,8 @@
   description: ''
   preferred_slug: fplVDQRWE2NgZ5ZdEfbOsi
   elements:
-  - title: health_dashboards
-    name: health_dashboards
+  - title: Health Dashboards
+    name: Health Dashboards
     model: vectra_detect_dashboards
     explore: events
     type: table
@@ -17,7 +17,7 @@
       events.metadata__description: "-NULL"
       events__security_result.action_details: "-NULL"
     sorts: [events.event_time_time desc]
-    limit: 500
+    limit: 100
     column_limit: 50
     show_view_names: false
     show_row_numbers: true
@@ -39,17 +39,33 @@
     listen:
       Result: events__security_result__detection_fields__result.result
       Timerange: events.event_time_time
+      Log Type: events.log_type
     row: 0
     col: 0
     width: 24
     height: 12
   filters:
+  - name: Log Type
+    title: Log Type
+    type: field_filter
+    default_value: Health
+    allow_multiple_values: true
+    required: true
+    ui_config:
+      type: dropdown_menu
+      display: inline
+      options:
+      - Health
+    model: vectra_detect_dashboards
+    explore: events
+    listens_to_filters: []
+    field: events.log_type
   - name: Timerange
     title: Timerange
     type: field_filter
-    default_value: 2025/01/10 15:53 to 2025/01/10 15:53
+    default_value: 7 day
     allow_multiple_values: true
-    required: false
+    required: true
     ui_config:
       type: advanced
       display: popover
@@ -69,5 +85,5 @@
       display: inline
     model: vectra_detect_dashboards
     explore: events
-    listens_to_filters: []
+    listens_to_filters: [Log Type, Timerange]
     field: events__security_result__detection_fields__result.result
