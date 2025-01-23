@@ -39,9 +39,8 @@ explore: events {
     }
 
   join: entity_dashboard_1 {
-    from: entity_dashboard_2
     type: left_outer
-    sql_on: ${events.target__user__userid} = ${entity_dashboard_2.account_id};;
+    sql_on: ${events.target__user__userid} = ${entity_dashboard_1.account_id};;
     relationship: many_to_many
   }
 
