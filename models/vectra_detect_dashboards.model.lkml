@@ -22,24 +22,7 @@ explore: events {
     fields: [events__security_result__detection_fields__success.success]
     relationship: one_to_many
   }
-  # join: entity_dashboard_2 {
-  #   sql_on: ${events.source_entity} = ${entity_dashboard_2.source_entity} ;;
-  #   type: left_outer
-  #   relationship: many_to_many
 
-  # }
-  # fields:
-  # - field_group_label: "Entity Details"
-  # dimensions:
-  # - dimension: source_entity
-  # - dimension: src_ip
-  # - dimension: vectra_url
-  # - dimension: assigned_to
-  # - field_group_label: "Scoring Details"
-  # measures:
-  # - measure: unique_priorities
-  # - measure: unique_statuses
-  # - measure: latest_update
   join: entity_dashboard_2 {
     type: left_outer
     sql_on: ${events.target__asset_id} = ${entity_dashboard_2.host_id};;
