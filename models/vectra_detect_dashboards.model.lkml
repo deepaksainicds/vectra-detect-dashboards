@@ -33,6 +33,18 @@ explore: events {
     # - measure: unique_priorities
     # - measure: unique_statuses
     # - measure: latest_update
+  join: entity_dashboard {
+    type: left_outer
+    sql_on: {% if events.target__asset_id != null %}
+                ${events.target__asset_id} = ${entity_dashboard.host_id}
+            {% elsif events.target__user__userid != null %}
+               ${events.target__user__userid} = ${entity_dashboard.account_id}
+            {% else %}
+                1=1
+            {% endif %}
+            ;;
+    relationship: many_to_many
+  }
     join: entity_dashboard_2 {
       type: left_outer
       sql_on: ${events.target__asset_id} = ${entity_dashboard_2.host_id};;
