@@ -3,19 +3,18 @@
   title: Audit Dashboard
   layout: newspaper
   description: ''
-  preferred_slug: 3lMIMnP1ke7y8RoqnlGOSp
+  preferred_slug: 2KiVt1AQXdUyElq504gmP7
   elements:
   - title: Audit
     name: Audit
     model: vectra_detect_dashboards
     explore: events
     type: table
-    fields: [events.metadata__description, events.metadata__event_timestamp__seconds,
-      events__security_result__detection_fields.value, events.combined_name, events.combined_role,
+    fields: [events.metadata__description, events.combined_name, events.combined_role,
       events__security_result__detection_fields.result, events.event_time_time]
     filters:
       events__security_result__detection_fields.result: "-NULL"
-    sorts: [events__security_result__detection_fields.result desc]
+    sorts: [events.event_time_time desc]
     limit: 100
     column_limit: 50
     show_view_names: false
@@ -38,10 +37,10 @@
     conditional_formatting: [{type: equal to, value: !!null '', background_color: "#1A73E8",
         font_color: !!null '', color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2,
           palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}, bold: false, italic: false,
-        strikethrough: false, fields: [events.metadata__event_timestamp__seconds]}]
+        strikethrough: false, fields: []}]
     hidden_pivots: {}
     defaults_version: 1
-    hidden_fields: [events__security_result__detection_fields.value, events.metadata__event_timestamp__seconds]
+    hidden_fields: []
     listen:
       Result: events__security_result__detection_fields__result.result
       User: events.combined_name

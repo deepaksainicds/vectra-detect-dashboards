@@ -13,7 +13,7 @@ persist_with: vectra_detect_dashboards_default_datagroup
 
 
 explore: events {
-  sql_always_where: ${metadata__log_type} = "VECTRA_DETECT" ;;
+  sql_always_where: ${metadata__log_type} = "VECTRA_DETECT" AND ${metadata__product_name} = "Detect" ;;
 
   #Lockdown
   join: events__security_result__detection_fields__success {
