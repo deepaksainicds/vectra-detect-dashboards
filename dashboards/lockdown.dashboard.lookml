@@ -4,15 +4,15 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: k7PCTPyGv6txM8ZNmt4oAV
+  preferred_slug: mOqL6MN6g3XcKNiIL83XBi
   elements:
   - title: Hosts currently locked (30 days history)
     name: Hosts currently locked (30 days history)
     model: vectra_detect_dashboards
     explore: events
     type: looker_grid
-    fields: [events.last_event_time, events.last_success, events.last_security_result_url_back_to_product,
-      events.last_observer_display_name, events.target__hostname, events.last_action_details]
+    fields: [events.last_event_time, events.last_success, events.last_observer_display_name,
+      events.target__hostname, events.last_action_details, events.entities_pivot_url]
     filters:
       events.event_time_date: 30 days
       events.last_target__hostname: "-NULL"
@@ -63,6 +63,7 @@
       events.last_security_result_url_back_to_product: Host Details
       events.last_observer_display_name: Performed by
       events.last_action_details: State
+      events.entities_pivot_url: Host Details
     series_cell_visualizations: {}
     defaults_version: 1
     hidden_pivots: {}
@@ -70,18 +71,17 @@
     hidden_points_if_no: [state_filter]
     listen:
       Log Type: events.log_type
-      Dummy Filter: events.metadata__product_name
     row: 0
     col: 0
-    width: 12
-    height: 4
+    width: 24
+    height: 7
   - title: History of Hosts locked during the selected time range
     name: History of Hosts locked during the selected time range
     model: vectra_detect_dashboards
     explore: events
     type: looker_grid
     fields: [events.last_event_time, events.last_action_details, events.last_observer_display_name,
-      events.last_security_result_url_back_to_product, events.last_success, events.target__hostname]
+      events.last_success, events.target__hostname, events.entities_pivot_url]
     filters:
       events.last_target__hostname: "-NULL"
     sorts: [events.last_event_time desc]
@@ -122,24 +122,25 @@
       events.last_observer_display_name: Performed by
       events.last_security_result_url_back_to_product: Host Details
       events.last_success: Success
+      events.entities_pivot_url: Host Details
     series_cell_visualizations: {}
     defaults_version: 1
     hidden_pivots: {}
     listen:
       Log Type: events.log_type
       Timerange: events.event_time_time
-      Dummy Filter: events.metadata__product_name
-    row: 0
-    col: 12
-    width: 12
-    height: 4
+    row: 7
+    col: 0
+    width: 24
+    height: 8
   - title: Accounts currently locked (30 days history)
     name: Accounts currently locked (30 days history)
     model: vectra_detect_dashboards
     explore: events
     type: looker_grid
     fields: [events.last_event_time, events.last_action_details, events.last_observer_display_name,
-      events.last_security_result_url_back_to_product, events.last_success, events__target__user__email_addresses.events__target__user__email_addresses]
+      events.last_success, events__target__user__email_addresses.events__target__user__email_addresses,
+      events.entities_pivot_url]
     filters:
       events.event_time_date: 30 days
       events.last_account_uid: "-NULL"
@@ -171,6 +172,9 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
+    column_order: ["$$$_row_numbers_$$$", events__target__user__email_addresses.events__target__user__email_addresses,
+      events.last_event_time, events.last_action_details, events.last_success, events.last_observer_display_name,
+      events.last_security_result_url_back_to_product]
     show_totals: true
     show_row_totals: true
     truncate_header: false
@@ -189,31 +193,29 @@
       events.last_observer_display_name: Performed by
       events.last_security_result_url_back_to_product: Account Details
       events.last_success: Success
+      events.entities_pivot_url: Account Details
     series_cell_visualizations: {}
     defaults_version: 1
     hidden_pivots: {}
-    column_order: ["$$$_row_numbers_$$$", events__target__user__email_addresses.events__target__user__email_addresses,
-      events.last_event_time, events.last_action_details, events.last_success, events.last_observer_display_name,
-      events.last_security_result_url_back_to_product]
     hidden_fields: [state_filter]
     hidden_points_if_no: [state_filter]
     listen:
       Log Type: events.log_type
-      Dummy Filter: events.metadata__product_name
-    row: 4
+    row: 15
     col: 0
-    width: 12
-    height: 4
+    width: 24
+    height: 7
   - title: History of Accounts locked during the selected time range
     name: History of Accounts locked during the selected time range
     model: vectra_detect_dashboards
     explore: events
     type: looker_grid
     fields: [events.last_event_time, events.last_action_details, events.last_observer_display_name,
-      events.last_security_result_url_back_to_product, events.last_success, events__target__user__email_addresses.events__target__user__email_addresses]
+      events.last_success, events__target__user__email_addresses.events__target__user__email_addresses,
+      events.entities_pivot_url]
     filters:
       events.last_account_uid: "-NULL"
-    sorts: [events.last_event_time desc 0]
+    sorts: [events.last_event_time desc]
     limit: 100
     column_limit: 50
     show_view_names: false
@@ -232,6 +234,9 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
+    column_order: ["$$$_row_numbers_$$$", events__target__user__email_addresses.events__target__user__email_addresses,
+      events.last_event_time, events.last_action_details, events.last_success, events.last_observer_display_name,
+      events.last_security_result_url_back_to_product]
     show_totals: true
     show_row_totals: true
     truncate_header: false
@@ -250,20 +255,17 @@
       events.last_action_details: State
       events.last_observer_display_name: Performed by
       events.last_security_result_url_back_to_product: Account Details
+      events.entities_pivot_url: Account Details
     series_cell_visualizations: {}
     defaults_version: 1
     hidden_pivots: {}
-    column_order: ["$$$_row_numbers_$$$", events__target__user__email_addresses.events__target__user__email_addresses,
-      events.last_event_time, events.last_action_details, events.last_success, events.last_observer_display_name,
-      events.last_security_result_url_back_to_product]
     listen:
       Log Type: events.log_type
       Timerange: events.event_time_time
-      Dummy Filter: events.metadata__product_name
-    row: 4
-    col: 12
-    width: 12
-    height: 4
+    row: 22
+    col: 0
+    width: 24
+    height: 7
   filters:
   - name: Log Type
     title: Log Type
@@ -294,19 +296,3 @@
     explore: events
     listens_to_filters: []
     field: events.event_time_time
-  - name: Dummy Filter
-    title: Dummy Filter
-    type: field_filter
-    default_value: DETECT,Detect
-    allow_multiple_values: false
-    required: false
-    ui_config:
-      type: checkboxes
-      display: inline
-      options:
-      - DETECT
-      - Detect
-    model: vectra_detect_dashboards
-    explore: events
-    listens_to_filters: []
-    field: events.metadata__product_name
