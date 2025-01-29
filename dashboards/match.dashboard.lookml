@@ -42,8 +42,8 @@
       measure: count
       type: count_distinct
       _type_hint: number
-    value_labels: none
-    label_type: labPer
+    value_labels: labels
+    label_type: labVal
     series_labels: {}
     show_view_names: false
     show_row_numbers: true
@@ -98,8 +98,8 @@
       Direction: events.direction
     row: 0
     col: 0
-    width: 6
-    height: 6
+    width: 12
+    height: 10
   - title: Top Sources
     name: Top Sources
     model: vectra_detect_dashboards
@@ -137,8 +137,8 @@
       measure: count_2
       type: count_distinct
       _type_hint: number
-    value_labels: none
-    label_type: labPer
+    value_labels: labels
+    label_type: labVal
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -166,8 +166,8 @@
       Direction: events.direction
     row: 0
     col: 12
-    width: 6
-    height: 6
+    width: 12
+    height: 10
   - title: Top Destinations
     name: Top Destinations
     model: vectra_detect_dashboards
@@ -205,8 +205,8 @@
       measure: count_2
       type: count_distinct
       _type_hint: number
-    value_labels: none
-    label_type: labPer
+    value_labels: labels
+    label_type: labVal
     start_angle: 0
     end_angle: 0
     show_view_names: false
@@ -234,10 +234,10 @@
       Source IP: events__principal__ip.events__principal__ip
       Destination IP: events__target__ip.events__target__ip
       Direction: events.direction
-    row: 0
-    col: 18
-    width: 6
-    height: 6
+    row: 10
+    col: 12
+    width: 12
+    height: 10
   - title: Protocols
     name: Protocols
     model: vectra_detect_dashboards
@@ -276,8 +276,8 @@
       measure: count_1
       type: count_distinct
       _type_hint: number
-    value_labels: none
-    label_type: labPer
+    value_labels: labels
+    label_type: labVal
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -324,10 +324,10 @@
       Source IP: events__principal__ip.events__principal__ip
       Destination IP: events__target__ip.events__target__ip
       Direction: events.direction
-    row: 0
-    col: 6
-    width: 6
-    height: 6
+    row: 10
+    col: 0
+    width: 12
+    height: 10
   - title: Match's Alerts
     name: Match's Alerts
     model: vectra_detect_dashboards
@@ -385,7 +385,7 @@
       Source IP: events__principal__ip.events__principal__ip
       Destination IP: events__target__ip.events__target__ip
       Direction: events.direction
-    row: 6
+    row: 20
     col: 0
     width: 24
     height: 8
