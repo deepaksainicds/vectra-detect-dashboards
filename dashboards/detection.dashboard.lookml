@@ -1,21 +1,21 @@
 ---
-- dashboard: detection_dashboard
-  title: Detection Dashboard
+- dashboard: detection
+  title: Detection
   layout: newspaper
   description: ''
-  preferred_slug: 1m0TwjEpKLdxxlK4whTFz0
+  preferred_slug: BKNZXSFJkR6kcaWydqxJTg
   elements:
   - title: Detection Categories over Time
     name: Detection Categories over Time
     model: vectra_detect_dashboards
     explore: events
     type: looker_area
-    fields: [events.event_time_month, events.category, count_of_metadata_id]
+    fields: [events.category, count_of_metadata_id, events.event_time_date]
     pivots: [events.category]
     filters:
       events.last_category: "-NULL"
       events.last_product_event_type: "-NULL"
-    sorts: [events.category, events.event_time_month desc]
+    sorts: [events.category, events.event_time_date desc]
     limit: 100
     column_limit: 50
     dynamic_fields:
@@ -72,17 +72,16 @@
       palette_id: 5d189dfc-4f46-46f3-822b-bfb0b61777b1
       options:
         steps: 5
-    y_axes: [{label: '', orientation: left, series: [{axisId: count_of_metadata_id,
+    y_axes: [{label: Category count over Time, orientation: left, series: [{axisId: count_of_metadata_id,
             id: Botnet Activity - count_of_metadata_id, name: Botnet Activity}, {
             axisId: count_of_metadata_id, id: Command & Control - count_of_metadata_id,
-            name: Command & Control}, {axisId: count_of_metadata_id, id: Exfiltration
-              - count_of_metadata_id, name: Exfiltration}, {axisId: count_of_metadata_id,
-            id: Info - count_of_metadata_id, name: Info}, {axisId: count_of_metadata_id,
-            id: Lateral Movement - count_of_metadata_id, name: Lateral Movement},
-          {axisId: count_of_metadata_id, id: Reconnaissance - count_of_metadata_id,
-            name: Reconnaissance}, {axisId: count_of_metadata_id, id: Unknown - count_of_metadata_id,
-            name: Unknown}], showLabels: true, showValues: true, maxValue: !!null '',
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 9, type: linear}]
+            name: Command & Control}, {axisId: count_of_metadata_id, id: Info - count_of_metadata_id,
+            name: Info}, {axisId: count_of_metadata_id, id: Lateral Movement - count_of_metadata_id,
+            name: Lateral Movement}, {axisId: count_of_metadata_id, id: Unknown -
+              count_of_metadata_id, name: Unknown}], showLabels: true, showValues: true,
+        maxValue: !!null '', unpinAxis: false, tickDensity: default, tickDensityCustom: 9,
+        type: linear}]
+    x_axis_label: Time
     x_axis_zoom: true
     y_axis_zoom: true
     limit_displayed_rows_values:
@@ -108,32 +107,33 @@
     defaults_version: 1
     hidden_fields: []
     hidden_pivots: {}
+    ordering: none
+    show_null_labels: false
     listen:
       Timerange: events.event_time_time
       Detection Categories: events.category
-      Data Source: events.data_source
       Type: events.type
       Behavior: events.metadata__product_event_type
       Log Type: events.log_type
+      Source: events.data_source
     row: 0
     col: 0
     width: 24
-    height: 12
+    height: 11
   - title: Detection Table
     name: Detection Table
     model: vectra_detect_dashboards
     explore: events
     type: looker_grid
-    fields: [events.event_time_date, events.last_category, events.last_source_entity,
-      events.last_principal__ip, events.last_target__ip, events.last_target__hostname,
-      events.last_risk_score, events.last_confidence_score, events.last_url_back_to_product,
-      events.last_triaged, events.last_product_event_type, events.metadata__product_log_id,
-      events.event_time_time]
+    fields: [events.last_category, events.last_source_entity, events.last_principal__ip,
+      events.last_target__ip, events.last_target__hostname, events.last_risk_score,
+      events.last_confidence_score, events.last_triaged, events.last_product_event_type,
+      events.metadata__product_log_id, events.last_detection_url, events.last_formatted_datetime2]
     filters:
       events.metadata__product_log_id: "-NULL"
       events.last_category: "-NULL"
       events.last_product_event_type: "-NULL"
-    sorts: [events.event_time_date]
+    sorts: [events.last_category desc 0]
     limit: 100
     column_limit: 50
     show_view_names: false
@@ -152,6 +152,11 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
+    column_order: ["$$$_row_numbers_$$$", events.last_triaged, events.last_category,
+      events.last_product_event_type, events.last_source_entity, events.last_principal__ip,
+      events.last_target__hostname, events.last_target__ip, events.last_risk_score,
+      events.last_confidence_score, events.last_url_back_to_product, events.last_detection_url,
+      events.event_time_time]
     show_totals: true
     show_row_totals: true
     truncate_header: false
@@ -176,6 +181,12 @@
       events.last_source_entity: Source Entity
       events.last_category: Category
       events.event_time_time: Latest Detection
+      events.last_detection_url: Detection Details
+      events.last_event_time: Latest Detection
+      events.last_formatted_datetime2: Latest Detection
+    series_column_widths:
+      events.last_product_event_type: 250
+    series_cell_visualizations: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -202,26 +213,19 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [events.metadata__product_log_id, events.event_time_date]
-    column_order: ["$$$_row_numbers_$$$", events.last_triaged, events.last_category,
-      events.last_product_event_type, events.last_source_entity, events.last_principal__ip,
-      events.last_target__hostname, events.last_target__ip, events.last_risk_score,
-      events.last_confidence_score, events.last_url_back_to_product, events.event_time_time]
-    series_column_widths:
-      events.event_time_time: 228
-      events.last_product_event_type: 250
-    series_cell_visualizations: {}
+    hidden_fields: [events.metadata__product_log_id]
+    hidden_pivots: {}
     listen:
+      Log Type: events.log_type
       Timerange: events.event_time_time
       Detection Categories: events.category
-      Data Source: events.data_source
-      Type: events.type
       Behavior: events.metadata__product_event_type
-      Log Type: events.log_type
-    row: 12
+      Type: events.type
+      Source: events.data_source
+    row: 11
     col: 0
     width: 24
-    height: 12
+    height: 11
   filters:
   - name: Log Type
     title: Log Type
@@ -278,8 +282,8 @@
     explore: events
     listens_to_filters: [Log Type, Timerange]
     field: events.metadata__product_event_type
-  - name: Data Source
-    title: Data Source
+  - name: Source
+    title: Source
     type: field_filter
     default_value: ''
     allow_multiple_values: true
