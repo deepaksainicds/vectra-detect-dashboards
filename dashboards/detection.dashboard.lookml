@@ -16,7 +16,7 @@
       events.last_category: "-NULL"
       events.last_product_event_type: "-NULL"
     sorts: [events.category, events.event_time_date desc]
-    limit: 100
+    limit: 5000
     column_limit: 50
     dynamic_fields:
     - _kind_hint: measure
