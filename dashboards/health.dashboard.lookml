@@ -1,6 +1,6 @@
 ---
-- dashboard: health_dashboards
-  title: Health Dashboards
+- dashboard: health
+  title: Health
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

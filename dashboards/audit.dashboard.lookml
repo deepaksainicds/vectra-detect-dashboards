@@ -1,6 +1,6 @@
 ---
-- dashboard: audit_dashboard
-  title: Audit Dashboard
+- dashboard: audit
+  title: Audit
   layout: newspaper
   description: ''
   preferred_slug: 2KiVt1AQXdUyElq504gmP7
