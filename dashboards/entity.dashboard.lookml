@@ -1,25 +1,24 @@
 ---
-- dashboard: entity_dashboard
-  title: Entity Dashboard
+- dashboard: entity
+  title: Entity
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: K3qmAs1hGqyGecu9yJdlZQ
+  preferred_slug: Rk4kUe2p10cw3vvjy8NSOi
   elements:
-  - title: Data
-    name: Data
+  - title: Entity Table
+    name: Entity Table
     model: vectra_detect_dashboards
     explore: events
     type: table
-    fields: [events.source_entity, events.values_severity, events.values_data_source,
-      events.values_events_principal_ip, events.values_metadata__url_back_to_product,
-      events.values_event_time_time, events.values_assigned_to, events.values_principal__hostname,
-      events.values_url_back_to_product]
+    fields: [events.target_entity_standarized, events.last_data_source, events.last_target__ip,
+      events.last_risk_score2, events.last_confidence_score2, events.last_assigned_to,
+      events.last_formatted_datetime, events.last_severity, events.entities_pivot_url,
+      events.last_priority]
     filters:
       events__security_result.confidence_score: ">0"
       events__security_result.risk_score: ">0"
-      events.values_assigned_to: "-N/A"
-    sorts: [events.source_entity desc]
+    sorts: [events.last_risk_score2 desc]
     limit: 100
     column_limit: 50
     dynamic_fields:
@@ -37,37 +36,46 @@
     truncate_column_names: false
     hide_totals: false
     hide_row_totals: false
-    table_theme: editable
+    table_theme: white
     limit_displayed_rows: false
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
+    series_labels:
+      events.target_entity_standarized: Source Entity
+      events.last_data_source: Data Source
+      events.last_severity: Severity
+      events.entities_pivot_url: Entity Details
+      events.last_target__ip: Source IP
+      events.last_risk_score2: Threat
+      events.last_confidence_score2: Certainty
+      events.last_formatted_datetime: Latest Update
+      events.last_assigned_to: Assignment
     defaults_version: 1
-    hidden_fields: []
+    hidden_fields: [events.last_priority]
     hidden_pivots: {}
     listen:
+      Log Type: events.log_type
       Timerange: events.event_time_time
       Severity: events.severity
       Source: events.data_source
       Entity type: events.type
-      Log Type: events.log_type
-    row: 12
+    row: 9
     col: 0
     width: 24
-    height: 12
-  - title: 'Graph '
-    name: 'Graph '
+    height: 4
+  - title: Threat Vs certainty over Time
+    name: Threat Vs certainty over Time
     model: vectra_detect_dashboards
     explore: events
     type: looker_scatter
-    fields: [events__security_result.risk_score, events__security_result.confidence_score,
-      events.severity, events.source_entity, events.principal__hostname, events__principal__user__email_addresses.events__principal__user__email_addresses,
-      events.last_source_entity]
+    fields: [events.target_entity_standarized, events.last_confidence_score, events.last_risk_score,
+      events.last_event_time]
     filters:
       events__security_result.risk_score: ">0"
       events__security_result.confidence_score: ">0"
-    sorts: [events.source_entity desc]
-    limit: 100
+    sorts: [events.target_entity_standarized desc]
+    limit: 5000
     column_limit: 50
     x_axis_gridlines: true
     y_axis_gridlines: false
@@ -92,21 +100,20 @@
     x_axis_scale: auto
     y_axis_combined: true
     show_null_points: true
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: events__security_result.confidence_score,
-            id: events__security_result.confidence_score, name: Certainty}], showLabels: true,
+    y_axes: [{label: Threat, orientation: left, series: [{axisId: events.last_risk_score,
+            id: events.last_risk_score, name: Last Risk Score}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, type: linear}]
     x_axis_label: Certainty
+    size_by_field: ''
     x_axis_zoom: true
     y_axis_zoom: true
+    hide_legend: false
     series_colors:
       events__security_result.confidence_score: "#FF8168"
     series_labels:
       events__security_result.confidence_score: Certainty
       events__security_result.risk_score: Threat
-    series_point_styles:
-      events.severity: square
-      events__security_result.confidence_score: square
-      events__security_result.risk_score: square
+    label_color: []
     swap_axes: false
     cluster_points: false
     quadrants_enabled: false
@@ -127,7 +134,7 @@
     custom_quadrant_point_y: 5
     custom_x_column: ''
     custom_y_column: ''
-    custom_value_label_column: ''
+    custom_value_label_column: default
     show_sql_query_menu_options: false
     column_order: ["$$$_row_numbers_$$$", events__security_result.risk_score, events__security_result.confidence_score]
     show_totals: true
@@ -153,18 +160,18 @@
     defaults_version: 1
     hide_totals: false
     hide_row_totals: false
-    hidden_fields: [events__principal__user__email_addresses.events__principal__user__email_addresses,
-      events.principal__hostname, events.source_entity, events.last_source_entity]
+    hidden_fields: [events.target_entity_standarized, events.last_event_time]
+    hidden_pivots: {}
     listen:
+      Log Type: events.log_type
       Timerange: events.event_time_time
       Severity: events.severity
       Source: events.data_source
       Entity type: events.type
-      Log Type: events.log_type
     row: 0
     col: 0
     width: 24
-    height: 12
+    height: 9
   filters:
   - name: Log Type
     title: Log Type

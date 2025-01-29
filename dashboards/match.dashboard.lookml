@@ -238,8 +238,8 @@
     col: 12
     width: 12
     height: 10
-  - title: Protocols
-    name: Protocols
+  - title: Top Protocols
+    name: Top Protocols
     model: vectra_detect_dashboards
     explore: events
     type: looker_pie

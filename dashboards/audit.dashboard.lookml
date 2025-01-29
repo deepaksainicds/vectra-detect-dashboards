@@ -49,7 +49,7 @@
     row: 0
     col: 0
     width: 24
-    height: 12
+    height: 4
   filters:
   - name: Log Type
     title: Log Type

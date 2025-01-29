@@ -133,7 +133,7 @@
       events.metadata__product_log_id: "-NULL"
       events.last_category: "-NULL"
       events.last_product_event_type: "-NULL"
-    sorts: [events.last_category desc 0]
+    sorts: [events.last_formatted_datetime2 desc]
     limit: 100
     column_limit: 50
     show_view_names: false

@@ -74,7 +74,7 @@
     row: 0
     col: 0
     width: 24
-    height: 7
+    height: 4
   - title: History of Hosts locked during the selected time range
     name: History of Hosts locked during the selected time range
     model: vectra_detect_dashboards
@@ -129,10 +129,10 @@
     listen:
       Log Type: events.log_type
       Timerange: events.event_time_time
-    row: 7
+    row: 4
     col: 0
     width: 24
-    height: 8
+    height: 4
   - title: Accounts currently locked (30 days history)
     name: Accounts currently locked (30 days history)
     model: vectra_detect_dashboards
@@ -201,10 +201,10 @@
     hidden_points_if_no: [state_filter]
     listen:
       Log Type: events.log_type
-    row: 15
+    row: 8
     col: 0
     width: 24
-    height: 7
+    height: 4
   - title: History of Accounts locked during the selected time range
     name: History of Accounts locked during the selected time range
     model: vectra_detect_dashboards
@@ -262,10 +262,10 @@
     listen:
       Log Type: events.log_type
       Timerange: events.event_time_time
-    row: 22
+    row: 12
     col: 0
     width: 24
-    height: 7
+    height: 4
   filters:
   - name: Log Type
     title: Log Type
