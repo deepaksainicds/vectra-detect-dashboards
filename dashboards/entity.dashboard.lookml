@@ -59,13 +59,13 @@
       Timerange: events.event_time_time
       Severity: events.severity
       Source: events.data_source
-      Entity type: events.type
+      Entity Type: events.scoring_type
     row: 9
     col: 0
     width: 24
     height: 4
-  - title: Threat Vs certainty over Time
-    name: Threat Vs certainty over Time
+  - title: Threat Vs Certainty over Time
+    name: Threat Vs Certainty over Time
     model: vectra_detect_dashboards
     explore: events
     type: looker_scatter
@@ -167,7 +167,7 @@
       Timerange: events.event_time_time
       Severity: events.severity
       Source: events.data_source
-      Entity type: events.type
+      Entity Type: events.scoring_type
     row: 0
     col: 0
     width: 24
@@ -228,8 +228,8 @@
     explore: events
     listens_to_filters: [Log Type, Timerange]
     field: events.data_source
-  - name: Entity type
-    title: Entity type
+  - name: Entity Type
+    title: Entity Type
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -240,4 +240,4 @@
     model: vectra_detect_dashboards
     explore: events
     listens_to_filters: [Log Type, Timerange]
-    field: events.type
+    field: events.scoring_type
