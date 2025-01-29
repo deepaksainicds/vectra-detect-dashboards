@@ -90,11 +90,12 @@
     hidden_fields: [percent_of_signature]
     hidden_points_if_no: []
     listen:
-      Source IP: events__principal__ip.events__principal__ip
-      Destination IP: events__target__ip.events__target__ip
       Log Type: events.log_type
       Timerange: events.event_time_time
       Top Protocols: events.application_protocol
+      Source IP: events__principal__ip.events__principal__ip
+      Destination IP: events__target__ip.events__target__ip
+      Direction: events.direction
     row: 0
     col: 0
     width: 6
@@ -160,6 +161,9 @@
       Log Type: events.log_type
       Timerange: events.event_time_time
       Top Protocols: events.application_protocol
+      Source IP: events__principal__ip.events__principal__ip
+      Destination IP: events__target__ip.events__target__ip
+      Direction: events.direction
     row: 0
     col: 12
     width: 6
@@ -170,8 +174,7 @@
     explore: events
     type: looker_pie
     fields: [events__target__ip.events__target__ip, count_2]
-    filters:
-      events__target__ip.events__target__ip: "-NULL"
+    filters: {}
     sorts: [count_2 desc 0]
     limit: 10
     column_limit: 50
@@ -228,6 +231,9 @@
       Log Type: events.log_type
       Timerange: events.event_time_time
       Top Protocols: events.application_protocol
+      Source IP: events__principal__ip.events__principal__ip
+      Destination IP: events__target__ip.events__target__ip
+      Direction: events.direction
     row: 0
     col: 18
     width: 6
@@ -315,6 +321,9 @@
       Log Type: events.log_type
       Timerange: events.event_time_time
       Top Protocols: events.application_protocol
+      Source IP: events__principal__ip.events__principal__ip
+      Destination IP: events__target__ip.events__target__ip
+      Direction: events.direction
     row: 0
     col: 6
     width: 6
@@ -329,8 +338,6 @@
       events.last_target_port, events.last_principal_port, events.last_direction]
     filters:
       events.network__direction: NOT NULL
-      events__principal__ip.events__principal__ip: "-NULL"
-      events__target__ip.events__target__ip: "-NULL"
     sorts: [events.last_formatted_datetime desc]
     limit: 100
     column_limit: 50
@@ -374,8 +381,10 @@
     listen:
       Log Type: events.log_type
       Timerange: events.event_time_time
-      Direction: events.direction
       Top Protocols: events.application_protocol
+      Source IP: events__principal__ip.events__principal__ip
+      Destination IP: events__target__ip.events__target__ip
+      Direction: events.direction
     row: 6
     col: 0
     width: 24
