@@ -15,9 +15,6 @@
       events.last_risk_score2, events.last_confidence_score2, events.last_assigned_to,
       events.last_formatted_datetime, events.last_severity, events.entities_pivot_url,
       events.last_priority]
-    filters:
-      events__security_result.confidence_score: ">0"
-      events__security_result.risk_score: ">0"
     sorts: [events.last_risk_score2 desc]
     limit: 100
     column_limit: 50
@@ -51,6 +48,7 @@
       events.last_confidence_score2: Certainty
       events.last_formatted_datetime: Latest Update
       events.last_assigned_to: Assignment
+      events.last_target_data_source: Data Source
     defaults_version: 1
     hidden_fields: [events.last_priority]
     hidden_pivots: {}
