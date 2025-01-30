@@ -101,7 +101,7 @@
     y_axis_combined: true
     show_null_points: true
     y_axes: [{label: Threat, orientation: left, series: [{axisId: events.last_risk_score,
-            id: events.last_risk_score, name: Threat}], showLabels: true,
+            id: events.last_risk_score, name: Last Risk Score}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, type: linear}]
     x_axis_label: Certainty
     size_by_field: ''
@@ -113,6 +113,7 @@
     series_labels:
       events__security_result.confidence_score: Certainty
       events__security_result.risk_score: Threat
+      events.last_risk_score: Threat
     label_color: []
     swap_axes: false
     cluster_points: false
@@ -132,8 +133,8 @@
         label: Quadrant 4
     custom_quadrant_point_x: 5
     custom_quadrant_point_y: 5
-    custom_x_column: ''
-    custom_y_column: ''
+    custom_x_column: events.last_confidence_score
+    custom_y_column: events.last_risk_score
     custom_value_label_column: default
     show_sql_query_menu_options: false
     column_order: ["$$$_row_numbers_$$$", events__security_result.risk_score, events__security_result.confidence_score]
