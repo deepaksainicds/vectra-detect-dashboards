@@ -10,7 +10,7 @@
     model: vectra_detect_dashboards
     explore: events
     type: looker_area
-    fields: [events.category, count_of_metadata_id, events.event_time_date]
+    fields: [events.category, events.event_time_date, count_of_metadata_product_log_id]
     pivots: [events.category]
     filters:
       events.last_category: "-NULL"
@@ -39,6 +39,13 @@
       expression: ''
       label: Count of Metadata ID
       measure: count_of_metadata_id
+      type: count_distinct
+    - _kind_hint: measure
+      _type_hint: number
+      based_on: events.metadata__product_log_id
+      expression: ''
+      label: Count of Metadata Product Log ID
+      measure: count_of_metadata_product_log_id
       type: count_distinct
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -88,7 +95,9 @@
       show_hide: hide
       first_last: first
       num_rows: 0
-    hidden_series: []
+    hidden_series: [Botnet Activity - count_of_metadata_product_log_id, Command &
+        Control - count_of_metadata_product_log_id, Lateral Movement - count_of_metadata_product_log_id,
+      Reconnaissance - count_of_metadata_product_log_id]
     series_colors: {}
     trend_lines: []
     show_row_numbers: true
@@ -125,14 +134,12 @@
     model: vectra_detect_dashboards
     explore: events
     type: looker_grid
-    fields: [events.last_category, events.last_source_entity, events.last_principal__ip,
-      events.last_target__ip, events.last_target__hostname, events.last_risk_score,
+    fields: [events.last_category, events.last_source_entity, events.last_risk_score,
       events.last_confidence_score, events.last_triaged, events.last_product_event_type,
-      events.metadata__product_log_id, events.last_detection_url, events.last_formatted_datetime2]
+      events.metadata__product_log_id, events.last_detection_url, events.last_formatted_datetime2,
+      events.last_source_ip_field, events.last_destination_ip_field, events.last_destination_field]
     filters:
       events.metadata__product_log_id: "-NULL"
-      events.last_category: "-NULL"
-      events.last_product_event_type: "-NULL"
     sorts: [events.last_formatted_datetime2 desc]
     limit: 100
     column_limit: 50
@@ -153,10 +160,9 @@
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
     column_order: ["$$$_row_numbers_$$$", events.last_triaged, events.last_category,
-      events.last_product_event_type, events.last_source_entity, events.last_principal__ip,
-      events.last_target__hostname, events.last_target__ip, events.last_risk_score,
-      events.last_confidence_score, events.last_url_back_to_product, events.last_detection_url,
-      events.event_time_time]
+      events.last_product_event_type, events.last_source_entity, events.last_source_ip_field,
+      events.last_destination_field, events.last_destination_ip_field, events.last_risk_score,
+      events.last_confidence_score, events.last_detection_url, events.last_formatted_datetime2]
     show_totals: true
     show_row_totals: true
     truncate_header: false
@@ -184,6 +190,9 @@
       events.last_detection_url: Detection Details
       events.last_event_time: Latest Detection
       events.last_formatted_datetime2: Latest Detection
+      events.last_destination_field: Destination
+      events.last_destination_ip_field: Destination IP
+      events.last_source_ip_field: Source IP
     series_column_widths:
       events.last_product_event_type: 250
     series_cell_visualizations: {}
@@ -220,12 +229,12 @@
       Timerange: events.event_time_time
       Detection Categories: events.category
       Behavior: events.metadata__product_event_type
-      Type: events.type
       Source: events.data_source
+      Type: events.type
     row: 11
     col: 0
     width: 24
-    height: 11
+    height: 5
   filters:
   - name: Log Type
     title: Log Type
