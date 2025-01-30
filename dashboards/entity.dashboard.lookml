@@ -101,7 +101,7 @@
     y_axis_combined: true
     show_null_points: true
     y_axes: [{label: Threat, orientation: left, series: [{axisId: events.last_risk_score,
-            id: events.last_risk_score, name: Last Risk Score}], showLabels: true,
+            id: events.last_risk_score, name: Threat}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, type: linear}]
     x_axis_label: Certainty
     size_by_field: ''
