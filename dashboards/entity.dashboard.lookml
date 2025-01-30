@@ -4,7 +4,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: Rk4kUe2p10cw3vvjy8NSOi
+  preferred_slug: ka1mlN7JL1X5XkP8LH7QNS
   elements:
   - title: Entity Table
     name: Entity Table
@@ -60,6 +60,7 @@
       Severity: events.severity
       Entity Type: events.scoring_type
       Source: events.target_data_source
+      Assignment: events.assigned_to
     row: 9
     col: 0
     width: 24
@@ -169,6 +170,7 @@
       Severity: events.severity
       Entity Type: events.scoring_type
       Source: events.target_data_source
+      Assignment: events.assigned_to
     row: 0
     col: 0
     width: 24
@@ -214,7 +216,7 @@
       display: inline
     model: vectra_detect_dashboards
     explore: events
-    listens_to_filters: [Log Type, Timerange]
+    listens_to_filters: [Timerange, Log Type]
     field: events.severity
   - name: Source
     title: Source
@@ -227,7 +229,7 @@
       display: inline
     model: vectra_detect_dashboards
     explore: events
-    listens_to_filters: []
+    listens_to_filters: [Timerange, Log Type]
     field: events.target_data_source
   - name: Entity Type
     title: Entity Type
@@ -240,5 +242,18 @@
       display: inline
     model: vectra_detect_dashboards
     explore: events
-    listens_to_filters: [Log Type, Timerange]
+    listens_to_filters: [Timerange, Log Type]
     field: events.scoring_type
+  - name: Assignment
+    title: Assignment
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: inline
+    model: vectra_detect_dashboards
+    explore: events
+    listens_to_filters: [Timerange, Log Type]
+    field: events.assigned_to
