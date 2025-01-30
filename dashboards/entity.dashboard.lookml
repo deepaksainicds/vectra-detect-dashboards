@@ -11,7 +11,7 @@
     model: vectra_detect_dashboards
     explore: events
     type: table
-    fields: [events.target_entity_standarized, events.last_data_source, events.last_target__ip,
+    fields: [events.target_entity_standarized, events.last_target_data_source, events.last_target__ip,
       events.last_risk_score2, events.last_confidence_score2, events.last_assigned_to,
       events.last_formatted_datetime, events.last_severity, events.entities_pivot_url,
       events.last_priority]
@@ -58,9 +58,8 @@
       Log Type: events.log_type
       Timerange: events.event_time_time
       Severity: events.severity
-      Source: events.data_source
       Entity Type: events.scoring_type
-      Assignment: events.assigned_to
+      Source: events.target_data_source
     row: 9
     col: 0
     width: 24
@@ -168,9 +167,8 @@
       Log Type: events.log_type
       Timerange: events.event_time_time
       Severity: events.severity
-      Source: events.data_source
       Entity Type: events.scoring_type
-      Assignment: events.assigned_to
+      Source: events.target_data_source
     row: 0
     col: 0
     width: 24
@@ -216,7 +214,7 @@
       display: inline
     model: vectra_detect_dashboards
     explore: events
-    listens_to_filters: [Timerange, Log Type]
+    listens_to_filters: [Log Type, Timerange]
     field: events.severity
   - name: Source
     title: Source
@@ -229,8 +227,8 @@
       display: inline
     model: vectra_detect_dashboards
     explore: events
-    listens_to_filters: [Timerange, Log Type]
-    field: events.data_source
+    listens_to_filters: []
+    field: events.target_data_source
   - name: Entity Type
     title: Entity Type
     type: field_filter
@@ -242,18 +240,5 @@
       display: inline
     model: vectra_detect_dashboards
     explore: events
-    listens_to_filters: [Timerange, Log Type]
+    listens_to_filters: [Log Type, Timerange]
     field: events.scoring_type
-  - name: Assignment
-    title: Assignment
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: inline
-    model: vectra_detect_dashboards
-    explore: events
-    listens_to_filters: [Timerange, Log Type]
-    field: events.assigned_to
