@@ -95,9 +95,7 @@
       show_hide: hide
       first_last: first
       num_rows: 0
-    hidden_series: [Botnet Activity - count_of_metadata_product_log_id, Command &
-        Control - count_of_metadata_product_log_id, Lateral Movement - count_of_metadata_product_log_id,
-      Reconnaissance - count_of_metadata_product_log_id]
+    hidden_series: []
     series_colors: {}
     trend_lines: []
     show_row_numbers: true
