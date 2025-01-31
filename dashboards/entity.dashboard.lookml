@@ -58,7 +58,7 @@
       Severity: events.severity
       Entity Type: events.scoring_type
       Source: events.target_data_source
-      Assignment: events.assigned_to
+      Assignment: events.assigned_to2
     row: 9
     col: 0
     width: 24
@@ -168,7 +168,7 @@
       Severity: events.severity
       Entity Type: events.scoring_type
       Source: events.target_data_source
-      Assignment: events.assigned_to
+      Assignment: events.assigned_to2
     row: 0
     col: 0
     width: 24
@@ -254,4 +254,4 @@
     model: vectra_detect_dashboards
     explore: events
     listens_to_filters: [Timerange, Log Type]
-    field: events.assigned_to
+    field: events.assigned_to2
