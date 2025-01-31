@@ -18,6 +18,7 @@
     sorts: [events.last_risk_score2 desc]
     limit: 100
     column_limit: 50
+    size_to_fit: true
     dynamic_fields:
     - category: dimension
       expression: coalesce(${entity_dashboard_1.user_assigned},${entity_dashboard_2.user_assigned},
