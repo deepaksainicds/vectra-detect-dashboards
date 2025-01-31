@@ -9,6 +9,7 @@
     name: Audit
     model: vectra_detect_dashboards
     explore: events
+    minimum_column_width: 75
     type: table
     fields: [events.metadata__description, events.combined_name, events.combined_role,
       events__security_result__detection_fields.result, events.event_time_time]
